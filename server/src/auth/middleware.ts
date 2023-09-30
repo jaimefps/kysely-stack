@@ -6,6 +6,10 @@ function getAuthToken(authorization: string | undefined) {
   return authorization?.split("Bearer ")[1].trim() ?? ""
 }
 
+function defaultUsername() {
+  return `user_${Date.now().toString()}`
+}
+
 export async function authenticate(req: Request) {
   const token = getAuthToken(req.headers.authorization)
   const memberAuth = await AuthSingleton.verifyToken(token)
@@ -21,7 +25,7 @@ export async function authenticate(req: Request) {
     },
     create: {
       firebase_id: firebaseUid,
-      username: Date.now().toString(),
+      username: defaultUsername(),
     },
     update: {},
   })
@@ -47,7 +51,7 @@ export async function dangerous_authenticateDev(req: Request) {
     },
     create: {
       firebase_id: dangerousUid,
-      username: Date.now().toString(),
+      username: defaultUsername(),
     },
     update: {},
   })) as NonNullable<MemberDb>
@@ -56,7 +60,7 @@ export async function dangerous_authenticateDev(req: Request) {
     memberDb,
     memberAuth: {
       uid: dangerousUid,
-      email: "persona@email.com",
+      email: "jaime.pericas.saez@gmail.com",
     },
   } as MemberInfo
 }

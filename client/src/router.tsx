@@ -35,7 +35,17 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Enforce type="entry">
-        <button onClick={member.dev}>log in</button>
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* NOTE: Hardcoded development user login */}
+          <button onClick={member.dev}>log in</button>
+        </div>
       </Enforce>
     ),
     errorElement: <div>No Match</div>,
@@ -44,7 +54,9 @@ const router = createBrowserRouter([
     path: "/main",
     element: (
       <Enforce type="login">
-        <button onClick={member.logout}>log out</button>
+        <button style={{ margin: 50 }} onClick={member.logout}>
+          log out
+        </button>
         <App />
       </Enforce>
     ),
