@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "Task" (
     "id" SERIAL NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
     "complete" BOOLEAN NOT NULL DEFAULT false,
     "title" TEXT NOT NULL,
 
@@ -12,9 +12,9 @@ CREATE TABLE "Task" (
 -- CreateTable
 CREATE TABLE "Member" (
     "id" SERIAL NOT NULL,
-    "firebase_id" TEXT NOT NULL,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "firebase_id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
 
     CONSTRAINT "Member_pkey" PRIMARY KEY ("id")

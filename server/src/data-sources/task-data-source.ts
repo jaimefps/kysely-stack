@@ -6,18 +6,27 @@ export class TaskDataSource {
   }
 
   get({ id, complete }: { id: un<number>; complete: un<boolean> }) {
-    return this.ctx.prisma.task.findMany({
-      where: {
-        ...(typeof id === "number" && { id }),
-        ...(typeof complete === "boolean" && { complete }),
-      },
-    })
+    let qb = this.ctx.db.selectFrom("Task")
+
+    if (typeof id === "number") {
+      qb = qb.where("id", "=", id)
+    }
+
+    if (typeof complete === "boolean") {
+      qb = qb.where("complete", "=", complete)
+    }
+
+    return qb.selectAll().execute()
   }
 
   create({ title }: { title: string }) {
-    return this.ctx.prisma.task.create({
-      data: { title },
-    })
+    return this.ctx.db
+      .insertInto("Task")
+      .values({
+        title,
+      })
+      .returningAll()
+      .executeTakeFirstOrThrow()
   }
 
   update({
@@ -29,18 +38,21 @@ export class TaskDataSource {
     title: un<string>
     complete: un<boolean>
   }) {
-    return this.ctx.prisma.task.update({
-      where: { id },
-      data: {
-        ...(typeof title === "string" && { title }),
+    return this.ctx.db
+      .updateTable("Task")
+      .where("id", "=", id)
+      .set({
         ...(typeof complete === "boolean" && { complete }),
-      },
-    })
+        ...(typeof title === "string" && { title }),
+      })
+      .execute()
   }
 
   delete({ id }: { id: number }) {
-    return this.ctx.prisma.task.delete({
-      where: { id },
-    })
+    return this.ctx.db
+      .deleteFrom("Task")
+      .where("id", "=", id)
+      .returningAll()
+      .executeTakeFirst()
   }
 }

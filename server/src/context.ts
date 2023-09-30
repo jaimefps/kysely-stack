@@ -1,7 +1,9 @@
 import { TaskDataSource } from "./data-sources"
 import { prisma } from "./prisma"
+import { db } from "./database"
 
 export class Context {
+  db = db
   prisma = prisma
   member: MemberInfo
 
