@@ -1,6 +1,6 @@
 # Demo fullstack setup
 
-Small repo to introduce Nexus, Prisma, code-gen, and fullstack type-safety. Includes example integration with Firebase authentication.
+Small repo to introduce Kysely (query builder), Nexus (gql server framework), Prisma (db schema framework), code-gen, and fullstack type-safety. Includes example integration with Firebase authentication.
 
 ## Start local development
 
@@ -37,5 +37,3 @@ Cancel the terminal process started above. Note you will **lose all data** in th
 ```
 $ docker-compose down
 ```
-# keysly-stack
-# keysly-stack
