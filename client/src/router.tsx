@@ -4,11 +4,15 @@ import {
   useNavigate,
 } from "react-router-dom"
 import { useEffect } from "react"
-import { member, useMemberAuth } from "./auth"
-import App from "./App"
+import { useMemberAuth } from "./auth"
+import { Signup } from "./pages/signup"
+import { Login } from "./pages/login"
+import { Reset } from "./pages/reset"
+import { Demo } from "./pages/demo"
 
-const Enforce: FCC<{
+const Enforce: React.FC<{
   type: "login" | "entry"
+  children: JSX.Element | JSX.Element[]
 }> = ({ children, type }) => {
   const navigate = useNavigate()
   const { member } = useMemberAuth()
@@ -35,29 +39,32 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <Enforce type="entry">
-        <div
-          style={{
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {/* NOTE: Hardcoded development user login */}
-          <button onClick={member.dev}>log in</button>
-        </div>
+        <Login />
       </Enforce>
     ),
     errorElement: <div>No Match</div>,
   },
   {
+    path: "/signup",
+    element: (
+      <Enforce type="entry">
+        <Signup />
+      </Enforce>
+    ),
+  },
+  {
+    path: "/reset",
+    element: (
+      <Enforce type="entry">
+        <Reset />
+      </Enforce>
+    ),
+  },
+  {
     path: "/main",
     element: (
       <Enforce type="login">
-        <button style={{ margin: 50 }} onClick={member.logout}>
-          log out
-        </button>
-        <App />
+        <Demo />
       </Enforce>
     ),
   },

@@ -13,12 +13,12 @@ const { firebase, secrets } = config()
 const firebaseApp = initializeApp(firebase)
 export const auth = getAuth(firebaseApp)
 
-export const member = {
+export const memberAuth = {
   current() {
     return auth.currentUser
   },
   token() {
-    return member.current()?.getIdToken()
+    return memberAuth.current()?.getIdToken()
   },
   create(email: string, password: string) {
     return createUserWithEmailAndPassword(auth, email, password)
@@ -48,5 +48,5 @@ export const member = {
 
 if (process.env.NODE_ENV === "development") {
   // @ts-ignore: for development only:
-  window.member = member
+  window.member = memberAuth
 }

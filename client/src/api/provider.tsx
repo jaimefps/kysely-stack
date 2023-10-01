@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client"
 import { setContext } from "@apollo/client/link/context"
 import { ApolloProvider } from "@apollo/client"
-import { member } from "../auth"
+import { memberAuth } from "../auth"
 
 const httpLink = createHttpLink({
   // local server url:
@@ -9,7 +9,7 @@ const httpLink = createHttpLink({
 })
 
 const authLink = setContext(async (_, { headers }) => {
-  const token = await member.token()
+  const token = await memberAuth.token()
   return {
     headers: {
       ...headers,
@@ -29,6 +29,8 @@ export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({}),
 })
 
-export const ApiProvider: FCC = ({ children }) => {
+export const ApiProvider: React.FC<{
+  children: Children
+}> = ({ children }) => {
   return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>
 }

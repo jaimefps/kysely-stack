@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useContext } from "react"
 import { onAuthStateChanged } from "firebase/auth"
-import { auth, member } from "./member"
+import { auth, memberAuth } from "./member"
 
 export type AuthProviderValue = {
-  member: ReturnType<typeof member.current>
+  member: ReturnType<typeof memberAuth.current>
   loading: boolean
 }
 
 export const AuthContext = React.createContext<AuthProviderValue | null>(null)
 
-export const AuthProvider: FCC = ({ children }) => {
+export const AuthProvider: React.FC<{
+  children: Children
+}> = ({ children }) => {
   const [value, setValue] = useState<AuthProviderValue>({
     member: null,
     loading: true,
