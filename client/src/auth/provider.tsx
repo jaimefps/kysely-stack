@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useMemo } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth, member } from "./member"
 
@@ -7,15 +7,14 @@ export type AuthProviderValue = {
   loading: boolean
 }
 
-const init: AuthProviderValue = {
-  member: null,
-  loading: true,
-}
-
-export const AuthContext = React.createContext(init as AuthProviderValue)
+export const AuthContext = React.createContext<AuthProviderValue | null>(null)
 
 export const AuthProvider: FCC = ({ children }) => {
-  const [value, setValue] = useState<AuthProviderValue>(init)
+  const [value, setValue] = useState<AuthProviderValue>({
+    member: null,
+    loading: true,
+  })
+
   useEffect(() => {
     const listener = onAuthStateChanged(auth, (member) => {
       setValue({
@@ -27,9 +26,14 @@ export const AuthProvider: FCC = ({ children }) => {
       listener()
     }
   }, [])
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 export const useMemberAuth = () => {
-  return useContext(AuthContext)
+  const val = useContext(AuthContext)
+  if (val === null) {
+    throw new Error("Cannot call useMemberAuth() outside of <AuthProvider/>")
+  }
+  return val
 }
