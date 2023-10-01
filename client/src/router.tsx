@@ -3,8 +3,10 @@ import {
   RouterProvider,
   useNavigate,
 } from "react-router-dom"
-import { useEffect } from "react"
+import { useLayoutEffect, useState } from "react"
+import { Centered } from "./shared/centered"
 import { useMemberAuth } from "./auth"
+import { Splash } from "./pages/splash"
 import { Signup } from "./pages/signup"
 import { Login } from "./pages/login"
 import { Reset } from "./pages/reset"
@@ -17,13 +19,12 @@ const Enforce: React.FC<{
   const navigate = useNavigate()
   const { member } = useMemberAuth()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (type === "login" && !member) {
-      navigate("/", {
+      navigate("/login", {
         replace: true,
       })
     }
-
     if (type === "entry" && member) {
       navigate("/main", {
         replace: true,
@@ -34,15 +35,48 @@ const Enforce: React.FC<{
   return children
 }
 
+const NoMatchRedirect = () => {
+  const navigate = useNavigate()
+  const [Count, SetCount] = useState(0)
+
+  const limit = 5
+  const diff = limit - Count
+
+  useLayoutEffect(() => {
+    const t = setInterval(() => {
+      SetCount((C) => C + 1)
+    }, 1000)
+    return () => {
+      clearInterval(t)
+    }
+  }, [])
+
+  useLayoutEffect(() => {
+    if (diff === 0) {
+      navigate("/main")
+    }
+  }, [Count])
+
+  return (
+    <Centered>
+      <p>No match found for that url, will redirect in {diff} secs</p>
+    </Centered>
+  )
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Splash />,
+    errorElement: <NoMatchRedirect />,
+  },
+  {
+    path: "/login",
     element: (
       <Enforce type="entry">
         <Login />
       </Enforce>
     ),
-    errorElement: <div>No Match</div>,
   },
   {
     path: "/signup",

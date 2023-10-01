@@ -2,6 +2,8 @@
 
 Small repo to introduce Kysely (query builder), Nexus (gql server framework), Prisma (db schema framework), code-gen, and fullstack type-safety. Includes example integration with Firebase authentication.
 
+![splash page](docs/assets/splash.png)
+
 ## Authentication setup (one time only)
 
 1. Create a [Firebase](https://firebase.google.com/) project

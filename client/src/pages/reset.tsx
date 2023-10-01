@@ -58,7 +58,7 @@ export const Reset: React.FC = () => {
             width: "100%",
             color: "black",
           }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/login")}
           disabled={Loading}
         >
           login

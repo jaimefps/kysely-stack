@@ -3,6 +3,14 @@ import { memberAuth } from "../auth"
 import { useNavigate } from "react-router-dom"
 import { AuthFormWrapper } from "../shared/auth-form-wrapper"
 import { ErrorAlert } from "../shared/alerts"
+import { config } from "../config"
+
+function canBypass() {
+  const { secrets } = config()
+  const isDevMode = process.env.NODE_ENV === "development"
+  const hasDevCreds = !!secrets?.dev?.password
+  return isDevMode && hasDevCreds
+}
 
 export const Login: React.FC = () => {
   const navigate = useNavigate()
@@ -88,7 +96,7 @@ export const Login: React.FC = () => {
         </button>
       </div>
 
-      {process.env.NODE_ENV === "development" && (
+      {canBypass() && (
         <button
           style={{
             width: "100%",
