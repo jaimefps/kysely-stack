@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client"
 import { AuthProvider } from "./auth"
 import { ApiProvider } from "./api"
 import { Router } from "./router"
-import "./index.css"
+import "./styles/index.scss"
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>

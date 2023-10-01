@@ -10,7 +10,7 @@ Small repo to introduce Kysely (query builder), Nexus (gql server framework), Pr
 
    a. Go to `Project Overview` > `Authentication` > `Users` > `Add User` and manually create a user.
 
-   b. Create client secrets folder `~/client/secrets/index.ts` (note that we have .gitignore `**/secrets`) and add the development user's info:
+   b. Create client secrets folder `~/client/secrets/index.ts` and add the development user's info. Note that git ignores these.
 
    ```javascript
    export function secrets() {
@@ -27,7 +27,13 @@ Small repo to introduce Kysely (query builder), Nexus (gql server framework), Pr
 
    a. Go to `(Gear Icon)` > `Project settings` > `Service accounts` > `Firebase Admin SDK` > `Generate new private key` and create json credentials.
 
-   b. Create server secrets folder `~/server/secrets/firebase-dev.json` (note that we have .gitignore `**/secrets`) and paste the json data in the file.
+   b. Create server secrets folder `~/server/secrets/firebase-dev.json` and paste the json data in the file. Note that git ignores these.
+
+4. Get your client credentials
+
+   a. Go to `(Gear Icon)` > `Project settings` > `General` > `SDK setup and configuration` and copy the `firebaseConfig` data.
+
+   b. Replace the firebase credentials in `~/client/src/config` with your own. These can be committed to git, they are meant to be public. Note: Do not change the name of the "firebase" key, just replace the object with your own.
 
 ## Start local development
 
