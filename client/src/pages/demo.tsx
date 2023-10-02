@@ -25,13 +25,6 @@ export function Demo() {
   const [Update] = useUpdateTaskMutation(mutationConfig)
   const [Delete] = useDeleteTaskMutation(mutationConfig)
 
-  const flex = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-  }
-
   return (
     <Centered>
       <div>

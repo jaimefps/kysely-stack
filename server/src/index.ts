@@ -8,6 +8,17 @@ import { schema } from "./schema"
  ************************/
 require("dotenv").config()
 
+/************************
+ * Cron jobs
+ ************************/
+import "./crons"
+
+/******************************************
+ * To keep the Node.js process running.
+ * Review using PM2 to manage process.
+ ******************************************/
+setInterval(() => {}, 10000)
+
 const isDev = process.env.NODE_ENV === "development"
 
 const server = new ApolloServer({

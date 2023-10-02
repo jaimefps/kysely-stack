@@ -4,6 +4,7 @@ export const SuccessAlert: React.FC<{
   <div
     style={{
       background: "lightgreen",
+      borderRadius: 3,
       color: "green",
       padding: 10,
     }}
@@ -18,6 +19,7 @@ export const ErrorAlert: React.FC<{
   <div
     style={{
       background: "pink",
+      borderRadius: 3,
       color: "red",
       padding: 10,
     }}
